@@ -8,77 +8,42 @@ using Microsoft.DirectX;
 using Microsoft.DirectX.Direct3D;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace MapTool
-{
+{   
     /// <summary>
     /// MainGame class
     /// </summary>
-    class MainGame:IDisposable
+    public partial class MainGame:IDisposable
     {
-        /// <summary>
-        /// 메인폼
-        /// </summary>
-        private MainForm m_mainForm = null;
-        private Device m_device = null;
+        private Microsoft.DirectX.Direct3D.Font m_font = null;
 
-        /// <summary>
-        /// 어플리케이션 초기화
-        /// </summary>
-        /// <param name="mainForm"></param>
-        /// <returns>초가화가 하나라도 실패하면 false를 리턴한다.</returns>
-        public bool initDevice(MainForm mainForm)
+        public bool initializeApplication(MainForm mainForm)
         {
             this.m_mainForm = mainForm;
 
-            PresentParameters pp = new PresentParameters();
-            pp.Windowed = true;
-            pp.SwapEffect = SwapEffect.Discard;
-
             try
             {
-                this.m_device = new Device(0,
-                    DeviceType.Hardware,
-                    m_mainForm, 
-                    CreateFlags.HardwareVertexProcessing, 
-                    pp);
-            }
-            catch (DirectXException ex1)
-            {
-                Debug.WriteLine(ex1.ToString());
-                try
-                {
-                    this.m_device = new Device(0,
-                        DeviceType.Hardware,
-                        m_mainForm.Handle,
-                        CreateFlags.SoftwareVertexProcessing,
-                        pp);
-                }
-                catch (DirectXException ex2)
-                {
-                    Debug.WriteLine(ex2.ToString());
-                    try
-                    {
-                        this.m_device = new Device(0,
-                            DeviceType.Reference,
-                            m_mainForm.Handle,
-                            CreateFlags.SoftwareVertexProcessing,
-                            pp);
-                    }
-                    catch (DirectXException ex3)
-                    {
-                        MessageBox.Show(ex3.ToString(),
-                            "error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-            }
+                this.CreateDevice(mainForm);
 
+                FontDescription fd = new FontDescription();
+
+                fd.Height = 24;
+                fd.FaceName = "consolas";
+
+                this.m_font = new Microsoft.DirectX.Direct3D.Font(this.m_device, fd);
+            }
+            catch (DirectXException ex)
+            {
+                MessageBox.Show(ex.ToString(),
+                    "error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return false;                
+            }
             return true;
         }
-
         /// <summary>
         /// 메인 루프 처리
         /// </summary>
@@ -86,6 +51,25 @@ namespace MapTool
         {            
             this.m_device.Clear(ClearFlags.Target, System.Drawing.Color.DarkBlue, 1.0f, 0);
             this.m_device.BeginScene();
+
+            this.m_font.DrawText(null, "directX", 0, 0, System.Drawing.Color.White);
+            
+            this.m_font.DrawText(null,
+                "point", 
+                new Point(250, 40), 
+                System.Drawing.Color.PaleVioletRed);
+            
+            this.m_font.DrawText(null,
+                "rectangle", 
+                new Rectangle(100, 260, 500, 400), 
+                DrawTextFormat.Left | DrawTextFormat.Top, 
+                System.Drawing.Color.Tomato);
+            
+            this.m_font.DrawText(null,
+                "directX" + Environment.NewLine + "fjklsdjfla",
+                new Rectangle(400, 320, 500, 400),
+                DrawTextFormat.Left | DrawTextFormat.Top, 
+                System.Drawing.Color.Green);
 
             this.m_device.EndScene();
             this.m_device.Present();
@@ -96,6 +80,11 @@ namespace MapTool
         /// </summary>
         void IDisposable.Dispose()
         {
+            if (this.m_font != null)
+            {
+                this.m_font.Dispose();
+            }
+
             if (this.m_device != null)
             {
                 this.m_device.Dispose();

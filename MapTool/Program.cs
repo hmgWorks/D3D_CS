@@ -22,7 +22,7 @@ namespace MapTool
             using (MainForm mainForm = new MainForm())
             using (MainGame mainGame = new MainGame())
             {
-                if (mainGame.initDevice(mainForm))
+                if (mainGame.initializeApplication(mainForm))
                 {
                     mainForm.Show();
 

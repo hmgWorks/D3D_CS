@@ -15,7 +15,7 @@ namespace MapTool
         public MainForm()
         {
             InitializeComponent();
-            this.ClientSize = new Size(640, 480);
+           // this.ClientSize = new Size(640, 480);
         }
     }
 }
