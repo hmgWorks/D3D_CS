@@ -5,7 +5,8 @@ using System.Diagnostics;
 namespace MapTool
 {
     public partial class MainGame
-    {         
+    {
+        private MainForm m_mainForm = null;
         private Device m_device = null;
         private Microsoft.DirectX.Direct3D.Font m_font = null;
         
