@@ -13,6 +13,9 @@ namespace MapTool
 {    
     public partial class MainGame:IDisposable
     {
+        private float lensPosTheta = 270.0f;
+        private float lensPosPhi = 0.0f;
+
         private bool[] keys = new bool[256];
 
         public bool Setup(MainForm mainForm)
@@ -41,7 +44,7 @@ namespace MapTool
         private void mainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if ((int)e.KeyCode < this.keys.Length)
-            {
+            {                
                 this.keys[(int)e.KeyCode] = false;
             }
         }
