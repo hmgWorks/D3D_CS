@@ -48,6 +48,10 @@ namespace MapTool
         /// </summary>
         void IDisposable.Dispose()
         {
+            if (this.m_font != null)
+            {
+                this.m_font.Dispose();
+            }
             if (this.m_device != null)
             {
                 this.m_device.Dispose();
