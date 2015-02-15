@@ -39,7 +39,8 @@ namespace MapTool
         /// </summary>
         public void Update()
         {            
-            this.m_device.Clear(ClearFlags.Target, System.Drawing.Color.DarkBlue, 1.0f, 0);
+            this.m_device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, 
+                System.Drawing.Color.DarkBlue, 1.0f, 0);
             this.m_device.BeginScene();
 
             this.m_device.EndScene();
