@@ -8,6 +8,15 @@ namespace MapTool
     { 
         private MainForm m_mainForm = null;
         private Device m_device = null;
+        private Microsoft.DirectX.Direct3D.Font m_font = null;
+
+        private void CreateFont()
+        {
+            FontDescription fd = new FontDescription();
+            fd.Height = 24;
+            fd.FaceName = "맑은고딕";
+            this.m_font = new Microsoft.DirectX.Direct3D.Font(this.m_device, fd);
+        }
 
         private void CreateDevice(MainForm mainForm)
         { 
