@@ -49,7 +49,7 @@ namespace MapTool
                 this.vertexBuffer.Unlock();
             }
 
-            this.texture = TextureLoader.FromFile(this.m_device, "phm.jpg");
+            this.texture = TextureLoader.FromFile(this.m_device, @"E:/hmgworks/cs/DX3D/MapTool/img/phm.jpg");
             this.m_device.RenderState.Lighting = false;
 
             return true;
