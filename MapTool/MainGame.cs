@@ -13,6 +13,7 @@ namespace MapTool
 {    
     public partial class MainGame:IDisposable
     {   
+        
         public bool Setup(MainForm mainForm)
         {
             try
