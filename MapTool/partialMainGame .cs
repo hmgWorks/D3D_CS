@@ -36,6 +36,8 @@ namespace MapTool
             PresentParameters pp = new PresentParameters();
             pp.Windowed = true;         
             pp.SwapEffect = SwapEffect.Discard;
+            pp.EnableAutoDepthStencil = true;
+            pp.AutoDepthStencilFormat = DepthFormat.D16;
             try
             {                
                 this.CreateDevice(mainForm, pp);
