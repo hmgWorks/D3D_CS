@@ -22,13 +22,13 @@ namespace MapTool
             using (MainForm mainForm = new MainForm())
             using (MainGame mainGame = new MainGame())
             {
-                if (mainGame.initDevice(mainForm))
+                if (mainGame.Setup(mainForm))
                 {
                     mainForm.Show();
 
                     while (mainForm.Created)
                     {
-                        mainGame.MainLoop();
+                        mainGame.Update();
 
                         //이벤트가 있는 경우 처리
                         Application.DoEvents();

@@ -10,79 +10,31 @@ using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace MapTool
-{
-    /// <summary>
-    /// MainGame class
-    /// </summary>
-    class MainGame:IDisposable
-    {
-        /// <summary>
-        /// 메인폼
-        /// </summary>
-        private MainForm m_mainForm = null;
-        private Device m_device = null;
-
-        /// <summary>
-        /// 어플리케이션 초기화
-        /// </summary>
-        /// <param name="mainForm"></param>
-        /// <returns>초가화가 하나라도 실패하면 false를 리턴한다.</returns>
-        public bool initDevice(MainForm mainForm)
+{    
+    public partial class MainGame:IDisposable
+    {   
+        public bool Setup(MainForm mainForm)
         {
-            this.m_mainForm = mainForm;
-
-            PresentParameters pp = new PresentParameters();
-            pp.Windowed = true;
-            pp.SwapEffect = SwapEffect.Discard;
-
             try
             {
-                this.m_device = new Device(0,
-                    DeviceType.Hardware,
-                    m_mainForm, 
-                    CreateFlags.HardwareVertexProcessing, 
-                    pp);
+                this.CreateDevice(mainForm);
             }
-            catch (DirectXException ex1)
+            catch (DirectXException ex)
             {
-                Debug.WriteLine(ex1.ToString());
-                try
-                {
-                    this.m_device = new Device(0,
-                        DeviceType.Hardware,
-                        m_mainForm.Handle,
-                        CreateFlags.SoftwareVertexProcessing,
-                        pp);
-                }
-                catch (DirectXException ex2)
-                {
-                    Debug.WriteLine(ex2.ToString());
-                    try
-                    {
-                        this.m_device = new Device(0,
-                            DeviceType.Reference,
-                            m_mainForm.Handle,
-                            CreateFlags.SoftwareVertexProcessing,
-                            pp);
-                    }
-                    catch (DirectXException ex3)
-                    {
-                        MessageBox.Show(ex3.ToString(),
-                            "error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-            }
 
+                MessageBox.Show(ex.ToString(),
+                    "error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return false;
+            }
             return true;
         }
 
         /// <summary>
         /// 메인 루프 처리
         /// </summary>
-        public void MainLoop()
+        public void Update()
         {            
             this.m_device.Clear(ClearFlags.Target, System.Drawing.Color.DarkBlue, 1.0f, 0);
             this.m_device.BeginScene();
