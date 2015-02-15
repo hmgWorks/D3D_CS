@@ -18,6 +18,8 @@ namespace MapTool
             try
             {
                 this.CreateDevice(mainForm);
+                this.SetupCamera();
+                this.CreateFont();
             }
             catch (DirectXException ex)
             {
