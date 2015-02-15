@@ -33,9 +33,9 @@ namespace MapTool
                 return false;
             }
 
-            this.m_device.Transform.View = Matrix.LookAtLH(new Vector3(0.0f, 0.0f, -10.0f),
+            this.m_device.Transform.View = Matrix.LookAtLH(new Vector3(10.0f, 10.0f, -10.0f),
                 new Vector3(0.0f, 0.0f, 0.0f), new Vector3(0.0f, 1.0f, 0.0f));
-
+            
             this.m_device.Transform.Projection = Matrix.PerspectiveFovLH(
                 Geometry.DegreeToRadian(60.0f),
                 (float)this.m_device.Viewport.Width / (float)this.m_device.Viewport.Height,
